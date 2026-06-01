@@ -1,0 +1,82 @@
+{
+  "model": "lck_total_kills_continuous_normal_v1",
+  "formula": "total_kills = intercept + standardized LCK profile features + patch fixed effect; probability via Normal(mean, sigma)",
+  "fit_year": 2024,
+  "features": [
+    "avg_total_mean",
+    "avg_time_mean",
+    "strength_abs_diff",
+    "recent_map_win_abs_diff",
+    "avg_kill_diff_sum",
+    "first_turret_mean"
+  ],
+  "intercept": 24.55913978494626,
+  "beta": {
+    "avg_total_mean": 0.3774672004629127,
+    "avg_time_mean": 0.47316218303645907,
+    "strength_abs_diff": 0.8564432758426662,
+    "recent_map_win_abs_diff": -0.30115281820773515,
+    "avg_kill_diff_sum": -0.432719250647891,
+    "first_turret_mean": 0.5667582642528066
+  },
+  "scaler": {
+    "avg_total_mean": {
+      "mean": 23.814489247311812,
+      "sd": 1.173620733554271
+    },
+    "avg_time_mean": {
+      "mean": 32.169220430107586,
+      "sd": 0.8203749862576472
+    },
+    "strength_abs_diff": {
+      "mean": 31.148181615473845,
+      "sd": 19.529707927426806
+    },
+    "recent_map_win_abs_diff": {
+      "mean": 0.318742532855436,
+      "sd": 0.19616812850183912
+    },
+    "avg_kill_diff_sum": {
+      "mean": 0.023629032258064783,
+      "sd": 6.213200221416915
+    },
+    "first_turret_mean": {
+      "mean": 0.4996610262008949,
+      "sd": 0.12303069886149234
+    }
+  },
+  "baseline_patch": "14.4",
+  "patch_gamma": {
+    "14.1": -2.466159041948469,
+    "14.2": -4.099898870326676,
+    "14.3": 0.3296135392053351,
+    "14.4": 0,
+    "14.5": 1.4965988582166143,
+    "14.11": -2.012160108535255,
+    "14.12": -0.7723170241498813,
+    "14.13": -3.0261635510053457,
+    "14.14": -1.4721643204323502,
+    "14.15": 1.0350018673093802
+  },
+  "sigma": 7.239900124810616,
+  "deploy": false,
+  "validation": {
+    "fit": {
+      "n": 1116,
+      "brier_baseline": 0.1621926220239688,
+      "brier_continuous": 0.15497367349833246,
+      "delta": -0.007218948525636343
+    },
+    "oos": {
+      "n": 1404,
+      "brier_baseline": 0.2513907481754354,
+      "brier_continuous": 0.25111193412793253,
+      "delta": -0.0002788140475028511
+    },
+    "oos_delta_ci95": {
+      "low": -0.002838085694450765,
+      "high": 0.0019692201323021352
+    }
+  },
+  "generated_at": "2026-05-31T00:04:25.754Z"
+}

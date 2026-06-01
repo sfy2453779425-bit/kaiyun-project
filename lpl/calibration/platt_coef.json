@@ -1,0 +1,12 @@
+{
+  "model": "p_cal = sigmoid(a + b * logit(model_p))",
+  "fit_year": 2024,
+  "n_fit": 220,
+  "n_total": 495,
+  "a": -0.004061846860833152,
+  "b": 1.1818102244552684,
+  "converged": true,
+  "iterations": 5,
+  "loss": 0.6068229943203133,
+  "generated_at": "2026-05-29T18:25:22.295Z"
+}

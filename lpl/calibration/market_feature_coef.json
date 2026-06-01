@@ -1,0 +1,99 @@
+{
+  "model": "logit(p) = intercept + market_logit + standardized profile features",
+  "fit_year": 2024,
+  "n_fit": 220,
+  "n_total": 495,
+  "l2": 0.01,
+  "features": [
+    "market_logit",
+    "strength_diff",
+    "recent_form_diff",
+    "avg_total_diff",
+    "patch_age_days",
+    "is_playoff",
+    "map_sample_diff"
+  ],
+  "scaler": {
+    "strength_diff": {
+      "mean": -0.500662161738489,
+      "sd": 10.587558385444694
+    },
+    "recent_form_diff": {
+      "mean": -0.0078060237433896585,
+      "sd": 0.185324351239418
+    },
+    "avg_total_diff": {
+      "mean": -0.13677272727272718,
+      "sd": 1.6613018014857617
+    },
+    "patch_age_days": {
+      "mean": 9.881818181818181,
+      "sd": 7.889269833919787
+    },
+    "map_sample_diff": {
+      "mean": -0.02727272727272727,
+      "sd": 6.996699339895392
+    }
+  },
+  "beta": {
+    "intercept": -0.08423939869989182,
+    "market_logit": 0.3046607129627978,
+    "strength_diff": 0.43853443513035695,
+    "recent_form_diff": 0.2145849464377925,
+    "avg_total_diff": 0.018566855749937685,
+    "patch_age_days": -0.006942365743074398,
+    "is_playoff": 0.40949839044542996,
+    "map_sample_diff": -0.06656054651439136
+  },
+  "ci95": {
+    "intercept": {
+      "low": -0.4321228998667194,
+      "high": 0.24427562505615194
+    },
+    "market_logit": {
+      "low": -0.3347683839264557,
+      "high": 1.0832337886736887
+    },
+    "strength_diff": {
+      "low": -0.4462420719285122,
+      "high": 1.468832155498729
+    },
+    "recent_form_diff": {
+      "low": -0.7522728962055505,
+      "high": 1.1671712019800213
+    },
+    "avg_total_diff": {
+      "low": -0.31749526991065613,
+      "high": 0.3558916514876221
+    },
+    "patch_age_days": {
+      "low": -0.4148300154309741,
+      "high": 0.3006511351507426
+    },
+    "is_playoff": {
+      "low": -0.5341125169786499,
+      "high": 1.4717468740986612
+    },
+    "map_sample_diff": {
+      "low": -0.4503402073650348,
+      "high": 0.28684854236917046
+    }
+  },
+  "bootstrap": {
+    "iterations": 1000,
+    "seed": 20260522,
+    "successful": 1000,
+    "failures": 0
+  },
+  "converged": true,
+  "iterations": 5,
+  "loss": 0.5964377135141671,
+  "oos_2025": {
+    "brier_feature_model": 0.19634282288271626,
+    "brier_market": 0.1867255765818181,
+    "logloss_feature_model": 0.5749213201423816,
+    "logloss_market": 0.5515820352572021,
+    "beats_market": false
+  },
+  "generated_at": "2026-05-29T18:27:03.161Z"
+}

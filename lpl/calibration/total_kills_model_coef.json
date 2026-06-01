@@ -1,0 +1,93 @@
+{
+  "model": "total_kills_continuous_normal_v1",
+  "formula": "total_kills = intercept + standardized profile features + patch fixed effect; probability via Normal(mean, sigma)",
+  "fit_year": 2024,
+  "features": [
+    "avg_total_mean",
+    "avg_time_mean",
+    "strength_abs_diff",
+    "strength_signed_diff",
+    "recent_abs_diff",
+    "avg_kill_diff_sum",
+    "first_turret_mean"
+  ],
+  "intercept": 27.71636493614727,
+  "beta": {
+    "avg_total_mean": 0.6957904486575374,
+    "avg_time_mean": -1.1585038521435778,
+    "strength_abs_diff": 0.25759347121740134,
+    "strength_signed_diff": -0.5914949063015533,
+    "recent_abs_diff": 0.012731721783276091,
+    "avg_kill_diff_sum": -0.1652523276498457,
+    "first_turret_mean": 0.16509827655209297
+  },
+  "scaler": {
+    "avg_total_mean": {
+      "mean": 25.47344907407413,
+      "sd": 1.3286170287743064
+    },
+    "avg_time_mean": {
+      "mean": 32.681612654321036,
+      "sd": 0.8946447576063774
+    },
+    "strength_abs_diff": {
+      "mean": 7.842106385493146,
+      "sd": 6.075310348020204
+    },
+    "strength_signed_diff": {
+      "mean": 0.34666941705710674,
+      "sd": 9.918806124460025
+    },
+    "recent_abs_diff": {
+      "mean": 0.13982541413720673,
+      "sd": 0.10425022450804027
+    },
+    "avg_kill_diff_sum": {
+      "mean": 0.6411574074074068,
+      "sd": 5.083212579329423
+    },
+    "first_turret_mean": {
+      "mean": 0.5039262624640913,
+      "sd": 0.05974870169675902
+    }
+  },
+  "baseline_patch": "14.13",
+  "patch_gamma": {
+    "14.13": 0,
+    "14.2": -0.7633763725530729,
+    "14.5": -1.6673911483512298,
+    "14.4": -1.207197552581922,
+    "14.10": -1.6630940051696088,
+    "14.11": -1.5049469727549978,
+    "14.15": -2.121437085385477,
+    "14.14": -1.1655466873628357,
+    "14.6": -1.764952786506992,
+    "14.1": 7.918730530126692
+  },
+  "sigma": 7.6,
+  "deploy": true,
+  "validation": {
+    "fit": {
+      "label": "2024 fit / 2024 拟合内",
+      "n": 3888,
+      "brier_baseline": 0.20911391106921506,
+      "brier_continuous": 0.19898530409062123,
+      "delta": -0.01012860697859383
+    },
+    "oos": {
+      "label": "2025 OOS / 2025 样本外",
+      "n": 4902,
+      "brier_baseline": 0.23853162121766994,
+      "brier_continuous": 0.229939566477467,
+      "delta": -0.008592054740202942
+    },
+    "oos_delta_ci95": {
+      "low": -0.01176285723868386,
+      "high": -0.005606768325723677
+    },
+    "overfit_flag": false,
+    "deploy": true
+  },
+  "generated_at": "2026-05-30T16:58:59.745Z",
+  "seed": 20260601
+}

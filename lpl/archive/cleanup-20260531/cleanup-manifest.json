@@ -1,0 +1,153 @@
+{
+  "generated_at": "2026-05-30T18:21:22.522Z",
+  "mode": "execute",
+  "archive_root": "lpl/archive/cleanup-20260531",
+  "deleted_mb": 2631.59,
+  "archived_mb": 0.12,
+  "operations": [
+    {
+      "action": "delete",
+      "target": "lpl/data/_refresh_regular",
+      "found": true,
+      "files": 8,
+      "bytes": 2725851,
+      "mb": 2.6,
+      "destination": ""
+    },
+    {
+      "action": "delete",
+      "target": "lpl/data/_refresh_playoffs",
+      "found": true,
+      "files": 16,
+      "bytes": 2683050,
+      "mb": 2.56,
+      "destination": ""
+    },
+    {
+      "action": "delete",
+      "target": "lpl/data/raw",
+      "found": true,
+      "files": 4691,
+      "bytes": 2754013374,
+      "mb": 2626.43,
+      "destination": ""
+    },
+    {
+      "action": "archive",
+      "target": "lpl/paper-trade-5-23.js",
+      "found": true,
+      "files": 1,
+      "bytes": 7588,
+      "mb": 0.01,
+      "destination": "lpl/archive/cleanup-20260531/paper-trade-5-23.js"
+    },
+    {
+      "action": "archive",
+      "target": "lpl/paper-trade-5-29.js",
+      "found": true,
+      "files": 1,
+      "bytes": 7267,
+      "mb": 0.01,
+      "destination": "lpl/archive/cleanup-20260531/paper-trade-5-29.js"
+    },
+    {
+      "action": "archive",
+      "target": "lpl/paper-trade-5-30.js",
+      "found": true,
+      "files": 1,
+      "bytes": 9587,
+      "mb": 0.01,
+      "destination": "lpl/archive/cleanup-20260531/paper-trade-5-30.js"
+    },
+    {
+      "action": "archive",
+      "target": "lpl/data/baseline_comparison.md",
+      "found": true,
+      "files": 1,
+      "bytes": 4133,
+      "mb": 0,
+      "destination": "lpl/archive/cleanup-20260531/data/baseline_comparison.md"
+    },
+    {
+      "action": "archive",
+      "target": "lpl/data/team_alias_audit.csv",
+      "found": true,
+      "files": 1,
+      "bytes": 49548,
+      "mb": 0.05,
+      "destination": "lpl/archive/cleanup-20260531/data/team_alias_audit.csv"
+    },
+    {
+      "action": "archive",
+      "target": "lpl/data/team_alias_audit_distinct.csv",
+      "found": true,
+      "files": 1,
+      "bytes": 11193,
+      "mb": 0.01,
+      "destination": "lpl/archive/cleanup-20260531/data/team_alias_audit_distinct.csv"
+    },
+    {
+      "action": "archive",
+      "target": "lpl/data/盘口分析/5-21-复盘.md",
+      "found": true,
+      "files": 1,
+      "bytes": 4956,
+      "mb": 0,
+      "destination": "lpl/archive/cleanup-20260531/data/盘口分析/5-21-复盘.md"
+    },
+    {
+      "action": "archive",
+      "target": "lpl/data/盘口分析/ledger-review-2026-05-21.md",
+      "found": true,
+      "files": 1,
+      "bytes": 7501,
+      "mb": 0.01,
+      "destination": "lpl/archive/cleanup-20260531/data/盘口分析/ledger-review-2026-05-21.md"
+    },
+    {
+      "action": "archive",
+      "target": "lpl/data/盘口分析/外部模型校准-2026-05-16.md",
+      "found": true,
+      "files": 1,
+      "bytes": 9717,
+      "mb": 0.01,
+      "destination": "lpl/archive/cleanup-20260531/data/盘口分析/外部模型校准-2026-05-16.md"
+    },
+    {
+      "action": "archive",
+      "target": "lpl/data/盘口分析/codex-任务-连续总杀模型.md",
+      "found": true,
+      "files": 1,
+      "bytes": 4119,
+      "mb": 0,
+      "destination": "lpl/archive/cleanup-20260531/data/盘口分析/codex-任务-连续总杀模型.md"
+    },
+    {
+      "action": "archive",
+      "target": "lpl/data/盘口分析/codex任务-连续总杀模型.md",
+      "found": true,
+      "files": 1,
+      "bytes": 4476,
+      "mb": 0,
+      "destination": "lpl/archive/cleanup-20260531/data/盘口分析/codex任务-连续总杀模型.md"
+    },
+    {
+      "action": "archive",
+      "target": "lpl/data/盘口分析/polymarket_odds.csv",
+      "found": true,
+      "files": 1,
+      "bytes": 5175,
+      "mb": 0,
+      "destination": "lpl/archive/cleanup-20260531/data/盘口分析/polymarket_odds.csv"
+    },
+    {
+      "action": "archive",
+      "target": "lpl/data/盘口分析/paper-trades.csv",
+      "found": true,
+      "files": 1,
+      "bytes": 1837,
+      "mb": 0,
+      "destination": "lpl/archive/cleanup-20260531/data/盘口分析/paper-trades.csv"
+    }
+  ]
+}

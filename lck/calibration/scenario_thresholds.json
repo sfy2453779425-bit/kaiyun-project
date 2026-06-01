@@ -1,0 +1,25 @@
+{
+  "generated_at": "2026-05-31T09:25:42.645Z",
+  "method": "LCK 全量历史经验百分位; kills/time/strength/chaos 用赛前(近期权重)对位画像, 每队至少 8 张赛前小局",
+  "source_files": [
+    "lck/data/history/all_map_details.csv",
+    "lck/data/history/all_matches.csv"
+  ],
+  "matches_used": 349,
+  "maps_for_deaths": 1790,
+  "thresholds": {
+    "high_kills_p70": 27.191000000000003,
+    "low_kills_p30": 24.307000000000002,
+    "high_time_p70": 32.361000000000004,
+    "low_time_p30": 31.73,
+    "chaos_p70": 43.57899999999999,
+    "chaos_p30": 32.8674,
+    "strength_diff_p70": 34.72951615275681,
+    "strength_diff_p50": 22.824407440676126,
+    "strength_diff_p30": 13.449326558913576,
+    "avg_deaths_p70": 17,
+    "favorite_kills_p50": 14.32,
+    "first_turret_p60": 0.6358977039158983,
+    "underdog_early_p50": 0.4986374143237972
+  }
+}

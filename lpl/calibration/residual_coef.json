@@ -1,0 +1,42 @@
+{
+  "model": "logit(p_final) = a + b * logit(market_p) + c * (logit(model_p) - logit(market_p))",
+  "fit_year": 2024,
+  "n_fit": 220,
+  "n_total": 495,
+  "a": -0.014729369134333502,
+  "b": 1.0415003332172998,
+  "c": 0.5942933224160618,
+  "ci95": {
+    "a": {
+      "low": -0.31207367057884033,
+      "high": 0.2630893954453532
+    },
+    "b": {
+      "low": 0.6508551061503519,
+      "high": 1.529413185081314
+    },
+    "c": {
+      "low": -0.23081438290566333,
+      "high": 1.4389597439591144
+    }
+  },
+  "bootstrap": {
+    "iterations": 1000,
+    "seed": 20260522,
+    "successful": 1000,
+    "failures": 0
+  },
+  "converged": true,
+  "iterations": 5,
+  "loss": 0.6004225148052231,
+  "oos_2025": {
+    "brier_p_final": 0.1884106084712483,
+    "brier_market": 0.1867255765818181,
+    "p_final_beats_market": false
+  },
+  "decision": {
+    "c_signal": "CI 含 0,不能证明有增量信息 / CI includes 0; no proven alpha",
+    "alpha": false
+  },
+  "generated_at": "2026-05-29T18:25:22.566Z"
+}

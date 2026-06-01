@@ -1,0 +1,309 @@
+{
+  "model": "team_kills_negative_binomial_v1",
+  "formula": "kills ~ NegBin(mu, k), log(mu)=alpha_team + beta_opp*z(opponent_strength_score_shrunk) + gamma_patch + delta_blue",
+  "fit_year": 2024,
+  "prior_n": 20,
+  "global": {
+    "beta_opp": -0.0500561501769136,
+    "delta_blue": 0.039458147327531744,
+    "gamma_patch": {
+      "14.13": 0,
+      "14.2": -0.06599112144226549,
+      "14.5": -0.030532738313697697,
+      "14.1": -0.22604094862992574,
+      "14.4": -0.05244705396515071,
+      "14.10": -0.03111644374905399,
+      "14.11": 0.02187222318900224,
+      "14.15": -0.06835600952984144,
+      "14.14": -0.0026596652083478002,
+      "14.6": -0.14507626134216908
+    },
+    "baseline_patch": "14.13",
+    "global_alpha": 2.5699945647157327,
+    "global_mean_kills": 13.065753424657535,
+    "global_dispersion_k": 5.892920533263526,
+    "handicap_diff_variance_scale": 1.1293118097381145,
+    "handicap_diff_variance_raw_ratio": 1.1293118097381145,
+    "handicap_diff_variance_n_maps": 730,
+    "beta_opp_ci95": {
+      "low": -0.0771971139892754,
+      "high": -0.017101927816603694
+    },
+    "beta_opp_mean_multiplier_per_1sd": 0.9511760142997531,
+    "beta_opp_ci95_multiplier": {
+      "low": 0.925707365749867,
+      "high": 0.983043480052631
+    }
+  },
+  "scaler": {
+    "opponent_strength_mean": 49.70841073397711,
+    "opponent_strength_sd": 10.970856577535528
+  },
+  "teams": {
+    "WBG": {
+      "team": "Weibo Gaming",
+      "alpha_team": 2.5977695995807424,
+      "alpha_prior": 2.545569073936048,
+      "n_fit": 115,
+      "mean_fit": 12.697442532904136,
+      "mean_observed_fit": 12.695652173913043,
+      "dispersion_k": 6.2045751216229625,
+      "mean_strength_score": 49.826159776963934
+    },
+    "NIP": {
+      "team": "Ninjas in Pyjamas",
+      "alpha_team": 2.674162786172231,
+      "alpha_prior": 2.612562850387237,
+      "n_fit": 113,
+      "mean_fit": 13.73812141865267,
+      "mean_observed_fit": 13.734513274336283,
+      "dispersion_k": 4.340292278732983,
+      "mean_strength_score": 52.70101508384238
+    },
+    "JDG": {
+      "team": "JD Gaming",
+      "alpha_team": 2.691832703981675,
+      "alpha_prior": 2.635723363891568,
+      "n_fit": 102,
+      "mean_fit": 14.054526762287802,
+      "mean_observed_fit": 14.127450980392156,
+      "dispersion_k": 8.965256685246002,
+      "mean_strength_score": 58.41557299350664
+    },
+    "TES": {
+      "team": "Top Esports",
+      "alpha_team": 2.7256984770444928,
+      "alpha_prior": 2.652954947740166,
+      "n_fit": 99,
+      "mean_fit": 14.414589148439696,
+      "mean_observed_fit": 14.424242424242424,
+      "dispersion_k": 8.133525919471442,
+      "mean_strength_score": 61.485384990366015
+    },
+    "BLG": {
+      "team": "Bilibili Gaming",
+      "alpha_team": 2.907472758049694,
+      "alpha_prior": 2.811469395980461,
+      "n_fit": 94,
+      "mean_fit": 17.41697166644137,
+      "mean_observed_fit": 17.393617021276597,
+      "dispersion_k": 12.90541803220223,
+      "mean_strength_score": 64.15150739540947
+    },
+    "LNG": {
+      "team": "LNG Esports",
+      "alpha_team": 2.6041977742128664,
+      "alpha_prior": 2.5665240655575148,
+      "n_fit": 93,
+      "mean_fit": 12.977741338962176,
+      "mean_observed_fit": 13.010752688172044,
+      "dispersion_k": 7.0873717135874506,
+      "mean_strength_score": 50.88840926233565
+    },
+    "AL": {
+      "team": "Anyone s Legend",
+      "alpha_team": 2.676037617676552,
+      "alpha_prior": 2.635219156865635,
+      "n_fit": 86,
+      "mean_fit": 14.035149170874266,
+      "mean_observed_fit": 14.151162790697674,
+      "dispersion_k": 5.594467016702721,
+      "mean_strength_score": 51.593474660038325
+    },
+    "FPX": {
+      "team": "Funplus Phoenix",
+      "alpha_team": 2.6668249913578235,
+      "alpha_prior": 2.6195386039713995,
+      "n_fit": 86,
+      "mean_fit": 13.806950080684667,
+      "mean_observed_fit": 13.883720930232558,
+      "dispersion_k": 6.981875566613169,
+      "mean_strength_score": 50.518370804742254
+    },
+    "IG": {
+      "team": "Invictus Gaming",
+      "alpha_team": 2.5326456089199185,
+      "alpha_prior": 2.527507882442724,
+      "n_fit": 84,
+      "mean_fit": 12.384807930381388,
+      "mean_observed_fit": 12.392857142857142,
+      "dispersion_k": 5.094118279139557,
+      "mean_strength_score": 47.03261842611905
+    },
+    "LGD": {
+      "team": "LGD Gaming",
+      "alpha_team": 2.526258565075055,
+      "alpha_prior": 2.5117610150463165,
+      "n_fit": 82,
+      "mean_fit": 12.12362588067968,
+      "mean_observed_fit": 12.146341463414634,
+      "dispersion_k": 6.814715376106336,
+      "mean_strength_score": 43.493690031910155
+    },
+    "WE": {
+      "team": "Team WE",
+      "alpha_team": 2.422351656442002,
+      "alpha_prior": 2.4243556018916506,
+      "n_fit": 76,
+      "mean_fit": 10.870890540779389,
+      "mean_observed_fit": 10.828947368421053,
+      "dispersion_k": 6.1856584642360755,
+      "mean_strength_score": 48.2568112278812
+    },
+    "OMG": {
+      "team": "OMG",
+      "alpha_team": 2.52022915610273,
+      "alpha_prior": 2.5162651163604455,
+      "n_fit": 75,
+      "mean_fit": 12.145501378469335,
+      "mean_observed_fit": 12.2,
+      "dispersion_k": 3.941103041781934,
+      "mean_strength_score": 47.052657442644076
+    },
+    "TT": {
+      "team": "TT",
+      "alpha_team": 2.5916453875328704,
+      "alpha_prior": 2.574976712533976,
+      "n_fit": 74,
+      "mean_fit": 13.105406179287966,
+      "mean_observed_fit": 13.14864864864865,
+      "dispersion_k": 5.112268921488425,
+      "mean_strength_score": 44.02362995231487
+    },
+    "UP": {
+      "team": "Ultra Prime",
+      "alpha_team": 2.401799690026531,
+      "alpha_prior": 2.429606709879823,
+      "n_fit": 74,
+      "mean_fit": 10.87247636776512,
+      "mean_observed_fit": 10.891891891891891,
+      "dispersion_k": 5.438330426963848,
+      "mean_strength_score": 40.37879072634492
+    },
+    "RA": {
+      "team": "Rare Atom",
+      "alpha_team": 2.5270478213590697,
+      "alpha_prior": 2.5334482818489112,
+      "n_fit": 71,
+      "mean_fit": 12.409577190246878,
+      "mean_observed_fit": 12.464788732394366,
+      "dispersion_k": 4.607971400952824,
+      "mean_strength_score": 41.542141619935755
+    },
+    "EDG": {
+      "team": "Edward Gaming",
+      "alpha_team": 2.4268860234467846,
+      "alpha_prior": 2.448012508247429,
+      "n_fit": 69,
+      "mean_fit": 11.155552548581722,
+      "mean_observed_fit": 11.130434782608695,
+      "dispersion_k": 5.516243752810725,
+      "mean_strength_score": 38.83968040749184
+    },
+    "RNG": {
+      "team": "Royal Never Give Up",
+      "alpha_team": 2.4140807968173466,
+      "alpha_prior": 2.4351397845847034,
+      "n_fit": 67,
+      "mean_fit": 10.986420946435421,
+      "mean_observed_fit": 10.925373134328359,
+      "dispersion_k": 5.124868017847863,
+      "mean_strength_score": 40.45125285940009
+    }
+  },
+  "fit": {
+    "converged": true,
+    "iterations": 21,
+    "loss": 3.2512592309082273,
+    "gradient_norm": 2.2109965567821987e-7,
+    "n_observations": 1460,
+    "n_teams": 17,
+    "n_patches": 10
+  },
+  "nonconverged_teams": [],
+  "generated_at": "2026-05-29T19:13:56.538Z",
+  "bootstrap": {
+    "iterations": 1000,
+    "seed": 20260601,
+    "successful": 1000,
+    "failures": 0
+  },
+  "validation_metrics": [
+    {
+      "label": "2024 fit / 2024 拟合内",
+      "n": 5840,
+      "brier_old": 0.19912615067104705,
+      "brier_nb": 0.1812946746998894,
+      "delta": -0.01783147597115764
+    },
+    {
+      "label": "2025 OOS / 2025 样本外",
+      "n": 6536,
+      "brier_old": 0.23664185590025222,
+      "brier_nb": 0.2286010239817356,
+      "delta": -0.008040831918516622
+    },
+    {
+      "label": "2025 low sample <20 maps / 2025 小样本队",
+      "n": 0,
+      "brier_old": null,
+      "brier_nb": null,
+      "delta": null
+    },
+    {
+      "label": "2025 line 12.5",
+      "n": 1634,
+      "brier_old": 0.23391043601777525,
+      "brier_nb": 0.2416999209616976,
+      "delta": 0.007789484943922342
+    },
+    {
+      "label": "2025 line 15.5",
+      "n": 1634,
+      "brier_old": 0.26337891325831253,
+      "brier_nb": 0.2616583279467413,
+      "delta": -0.00172058531157121
+    },
+    {
+      "label": "2025 line 18.5",
+      "n": 1634,
+      "brier_old": 0.25733957046148703,
+      "brier_nb": 0.23667618431604195,
+      "delta": -0.02066338614544508
+    },
+    {
+      "label": "2025 line 21.5",
+      "n": 1634,
+      "brier_old": 0.19193850386341563,
+      "brier_nb": 0.174369662702461,
+      "delta": -0.01756884116095464
+    }
+  ],
+  "pmf_sanity": [
+    {
+      "team_id": "WBG",
+      "pmf_sum": 1
+    },
+    {
+      "team_id": "NIP",
+      "pmf_sum": 1
+    },
+    {
+      "team_id": "JDG",
+      "pmf_sum": 1
+    }
+  ],
+  "lgd_tes_2026_05_29": {
+    "match_name": "Top Esports vs LGD Gaming",
+    "cutoff": "2026-05-29",
+    "patch": "16.10",
+    "old_cover_probability": 0.8621595415646613,
+    "nb_cover_probability": 0.7228363121887523,
+    "lgd_nb_mean": 12.604320738188644,
+    "tes_nb_mean": 15.449613358324214,
+    "lgd_strength": 51.47014638520317,
+    "tes_strength": 52.36971070625451,
+    "lgd_maps": 17,
+    "tes_maps": 30
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "generated_at": "2026-05-29T18:44:53.319Z",
+  "seed": 20260530,
+  "source_files": [
+    "lpl/data/history/all_map_details.csv",
+    "lpl/data/history/all_matches.csv"
+  ],
+  "method": "empirical quantiles from full available LPL history; kills/time/strength/chaos use shrunk pre-match pair profiles with min 8 prior maps per team",
+  "thresholds": {
+    "high_kills_p70": 28.54,
+    "low_kills_p30": 26.3625,
+    "high_time_p70": 32.885,
+    "low_time_p30": 32.16,
+    "chaos_p70": 47.9461589033931,
+    "chaos_p30": 43.30594831305103,
+    "strength_diff_p70": 13.010929031283386,
+    "strength_diff_p50": 8.220815994035078,
+    "strength_diff_p30": 5.021787967112672,
+    "avg_deaths_p70": 18,
+    "favorite_kills_p50": 14.32,
+    "first_turret_p60": 0.5605095541401274,
+    "underdog_early_p50": 0.5061924846625767
+  },
+  "samples": {
+    "maps_for_raw_deaths": 1932,
+    "matches_for_kills_time": 716,
+    "matches_for_strength_chaos": 716,
+    "by_year": {
+      "2024": {
+        "matches": 251,
+        "maps": 648
+      },
+      "2025": {
+        "matches": 319,
+        "maps": 817
+      },
+      "2026": {
+        "matches": 146,
+        "maps": 385
+      }
+    }
+  }
+}

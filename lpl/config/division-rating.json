@@ -1,0 +1,18 @@
+{
+  "version": "lpl-2026-split2-v1",
+  "description": "Division-aware display scoring for LPL Split 2. group_internal_score is only comparable inside a division; rating_score is for cross-division display.",
+  "baseline_adjustment": {
+    "登峰组": 2.0,
+    "涅槃组": -5.0,
+    "未分组": -2.0
+  },
+  "manual_groups": {
+    "登峰组": ["AL", "BLG", "IG", "JDG", "NIP", "TES", "WBG", "WE"],
+    "涅槃组": ["EDG", "LGD", "LNG", "OMG", "TT", "UP"]
+  },
+  "notes": [
+    "Manual groups are used first because LPL Split 2 has separate Dengfeng/Niepan schedules.",
+    "The baseline adjustment is display-layer only. It does not bypass odds-core gates or rewrite backtest model probabilities.",
+    "If the official group list changes, update manual_groups here and rerun npm run lpl:dashboard:insights."
+  ]
+}
