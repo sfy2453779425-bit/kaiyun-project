@@ -3,6 +3,7 @@ import { existsSync } from 'node:fs';
 import { mkdir, readdir, readFile, stat, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { ANALYSIS_DIR, DATA_DIR, readCsvIfExists } from '../shared.js';
+import { EXPECTED_LPL_MODEL_MODE, LPL_MODEL_MODE, modelRunMeta } from '../model-config.js';
 
 const ROOT = process.cwd();
 const LPL_DIR = path.join(ROOT, 'lpl');
@@ -168,7 +169,13 @@ async function main() {
   const totalKillsCoef = await readJsonIfExists(path.join(LPL_DIR, 'calibration', 'total_kills_model_coef.json'));
   const oddsDb = path.join(DATA_DIR, 'odds_history', 'odds.db');
   const driftCheck = runTotalKillsDriftCheck();
+  const modelMeta = modelRunMeta();
 
+  warnings.push(statusLine(
+    LPL_MODEL_MODE === EXPECTED_LPL_MODEL_MODE,
+    'LPL_MODEL_MODE default',
+    `current=${LPL_MODEL_MODE}; expected default=${EXPECTED_LPL_MODEL_MODE}`,
+  ));
   if (!divisionConfig?.manual_groups) warnings.push(statusLine(false, 'division manual groups', 'manual_groups missing'));
   if (!divisionOutput?.groups?.length) warnings.push(statusLine(false, 'division output', '队伍分组识别.json missing groups'));
   if (!totalKillsCoef?.deploy) warnings.push(statusLine(false, 'total kills model deploy', 'deploy flag is not true'));
@@ -212,6 +219,8 @@ async function main() {
   lines.push(`- History maps: ${historyMaps.length}`);
   lines.push(`- Upcoming matches: ${upcoming.length}`);
   lines.push(`- Latest current match date: ${latestMatchDate || '-'}`);
+  lines.push(`- Model mode: ${modelMeta.model_mode}`);
+  lines.push(`- Model signature: ${modelMeta.model_signature}`);
   if (driftCheck.parsed) {
     lines.push(`- Total kills 2026 drift: resid=${driftCheck.parsed.resid.toFixed(2)} kills, ECE=${(driftCheck.parsed.ece * 100).toFixed(1)}%, n=${driftCheck.parsed.qual2026}`);
   }
@@ -246,6 +255,7 @@ async function main() {
   lines.push('## Notes / 备注');
   lines.push('');
   lines.push('- This health check does not change model behavior.');
+  lines.push('- LPL model mode is a stamp only: default production behavior is unchanged unless future code explicitly adds a branch.');
   lines.push('- It refreshes the 2026 total-kills drift report and warns if absolute bias exceeds 1 kill or ECE exceeds 10%.');
   lines.push('- Dashboard division scores are display-layer only; betting permission still comes from `lpl/odds-core.js`.');
   lines.push('- If this report fails, fix required checks before trusting newly generated picks.');

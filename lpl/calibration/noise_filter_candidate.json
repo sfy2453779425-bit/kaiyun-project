@@ -1,0 +1,629 @@
+{
+  "model": "lpl_noise_filter_v1",
+  "deploy": false,
+  "generated_at": "2026-06-06T03:46:18.010Z",
+  "seed": 20260606,
+  "selected_method": "shrink_10",
+  "rules": {
+    "min_sample": 32,
+    "min_team_train_maps": 16,
+    "min_prior_market_n": 60,
+    "max_prior_market_ece": 0.08,
+    "max_prior_line_ece": 0.1,
+    "min_patch_age_days": 8,
+    "high_variance_min_patch_age_days": 15,
+    "min_ev_with_real_odds": 0.08,
+    "min_abs_model_edge_without_odds": 0.08,
+    "block_markets": [],
+    "supported_recent_markets": [
+      "game1_win",
+      "game_time",
+      "map_total",
+      "team_kills_handicap"
+    ]
+  },
+  "market_candidates": [
+    {
+      "market": "game_time",
+      "method": "shrink_30",
+      "status": "paper_only",
+      "recent_brier_delta": -0.0036325588006500265,
+      "recent_ece_delta": -0.037168557536467806,
+      "brier_delta_ci95": [
+        -0.006711613327490377,
+        -0.000763010152846568
+      ],
+      "trigger_rate": 0.6166936790923825
+    },
+    {
+      "market": "game_time",
+      "method": "prior_blend_market_25",
+      "status": "paper_only",
+      "recent_brier_delta": -0.003384834720615959,
+      "recent_ece_delta": -0.03439092545838386,
+      "brier_delta_ci95": [
+        -0.006460581402450898,
+        -0.0005852466187271269
+      ],
+      "trigger_rate": 0.6166936790923825
+    },
+    {
+      "market": "game_time",
+      "method": "shrink_20",
+      "status": "paper_only",
+      "recent_brier_delta": -0.0031000128254992654,
+      "recent_ece_delta": -0.031613452188006395,
+      "brier_delta_ci95": [
+        -0.006090730020253928,
+        -0.0003190520387660595
+      ],
+      "trigger_rate": 0.6166936790923825
+    },
+    {
+      "market": "game1_win",
+      "method": "market_gap_adjust_50",
+      "status": "paper_only",
+      "recent_brier_delta": -0.00005375232557816578,
+      "recent_ece_delta": -0.00492192359290438,
+      "brier_delta_ci95": [
+        -0.00007207287565032875,
+        -0.00003582625685944266
+      ],
+      "trigger_rate": 1
+    },
+    {
+      "market": "game1_win",
+      "method": "line_gap_adjust_50",
+      "status": "paper_only",
+      "recent_brier_delta": -0.00005375232557816578,
+      "recent_ece_delta": -0.00492192359290438,
+      "brier_delta_ci95": [
+        -0.00007207287565032875,
+        -0.00003582625685944266
+      ],
+      "trigger_rate": 1
+    },
+    {
+      "market": "first_turret",
+      "method": "market_gap_adjust_100",
+      "status": "paper_only",
+      "recent_brier_delta": -0.000018934059074882104,
+      "recent_ece_delta": -0.00697658503045398,
+      "brier_delta_ci95": [
+        -0.000028884762185241163,
+        -0.00000891309425497325
+      ],
+      "trigger_rate": 1
+    },
+    {
+      "market": "first_turret",
+      "method": "market_gap_adjust_50",
+      "status": "paper_only",
+      "recent_brier_delta": -0.000011674885192075601,
+      "recent_ece_delta": -0.002291498279067122,
+      "brier_delta_ci95": [
+        -0.000016567252988500953,
+        -0.000006648910281622373
+      ],
+      "trigger_rate": 1
+    },
+    {
+      "market": "first_turret",
+      "method": "line_gap_adjust_50",
+      "status": "paper_only",
+      "recent_brier_delta": -0.000011674885192075601,
+      "recent_ece_delta": -0.002291498279067122,
+      "brier_delta_ci95": [
+        -0.000016567252988500953,
+        -0.000006648910281622373
+      ],
+      "trigger_rate": 1
+    }
+  ],
+  "validation": {
+    "selected_method": "shrink_10",
+    "gates": {
+      "brier_2025_not_worse": true,
+      "ece_2025_not_worse": true,
+      "brier_2026_improves": true,
+      "ece_2026_improves": true,
+      "bootstrap_brier_ci": true,
+      "real_roi_not_worse": false,
+      "min_real_odds_sample": false,
+      "deploy": false
+    },
+    "brier_delta_ci95": {
+      "low": -0.003809797602425855,
+      "high": -0.0006900381570777679
+    },
+    "baseline_2026_roi": {
+      "real_bets": 33,
+      "real_profit": 4.829000000000001,
+      "real_roi": 0.14633333333333334,
+      "real_hit_rate": 0.5757575757575758
+    },
+    "method_2026_roi": {
+      "real_bets": 29,
+      "real_profit": 2.707,
+      "real_roi": 0.0933448275862069,
+      "real_hit_rate": 0.5517241379310345
+    }
+  },
+  "all_method_gates": [
+    {
+      "method": "shrink_10",
+      "passCount": 5,
+      "deploy": false,
+      "recent_brier_delta": -0.002187286315359943,
+      "recent_ece_delta": -0.028536746105182545,
+      "brier_delta_ci_low": -0.003809797602425855,
+      "brier_delta_ci_high": -0.0006900381570777679,
+      "gates": {
+        "brier_2025_not_worse": true,
+        "ece_2025_not_worse": true,
+        "brier_2026_improves": true,
+        "ece_2026_improves": true,
+        "bootstrap_brier_ci": true,
+        "real_roi_not_worse": false,
+        "min_real_odds_sample": false,
+        "deploy": false
+      }
+    },
+    {
+      "method": "prior_blend_market_25",
+      "passCount": 5,
+      "deploy": false,
+      "recent_brier_delta": -0.002045243987503803,
+      "recent_ece_delta": -0.025753387239937267,
+      "brier_delta_ci_low": -0.0035722758005018833,
+      "brier_delta_ci_high": -0.0005904294044660905,
+      "gates": {
+        "brier_2025_not_worse": true,
+        "ece_2025_not_worse": true,
+        "brier_2026_improves": false,
+        "ece_2026_improves": true,
+        "bootstrap_brier_ci": true,
+        "real_roi_not_worse": false,
+        "min_real_odds_sample": true,
+        "deploy": false
+      }
+    },
+    {
+      "method": "market_gap_adjust_100",
+      "passCount": 5,
+      "deploy": false,
+      "recent_brier_delta": -0.002015234418331263,
+      "recent_ece_delta": -0.022879005887114758,
+      "brier_delta_ci_low": -0.003647710469702115,
+      "brier_delta_ci_high": -0.0005343254679067718,
+      "gates": {
+        "brier_2025_not_worse": true,
+        "ece_2025_not_worse": true,
+        "brier_2026_improves": true,
+        "ece_2026_improves": true,
+        "bootstrap_brier_ci": true,
+        "real_roi_not_worse": false,
+        "min_real_odds_sample": false,
+        "deploy": false
+      }
+    },
+    {
+      "method": "market_gap_adjust_50",
+      "passCount": 5,
+      "deploy": false,
+      "recent_brier_delta": -0.002013225138050606,
+      "recent_ece_delta": -0.02335769199162526,
+      "brier_delta_ci_low": -0.0036455253095561873,
+      "brier_delta_ci_high": -0.0005322701774155795,
+      "gates": {
+        "brier_2025_not_worse": true,
+        "ece_2025_not_worse": true,
+        "brier_2026_improves": true,
+        "ece_2026_improves": true,
+        "bootstrap_brier_ci": true,
+        "real_roi_not_worse": false,
+        "min_real_odds_sample": false,
+        "deploy": false
+      }
+    },
+    {
+      "method": "line_gap_adjust_50",
+      "passCount": 5,
+      "deploy": false,
+      "recent_brier_delta": -0.002013204611943542,
+      "recent_ece_delta": -0.02335770062685671,
+      "brier_delta_ci_low": -0.003645529750529041,
+      "brier_delta_ci_high": -0.0005322627248760474,
+      "gates": {
+        "brier_2025_not_worse": true,
+        "ece_2025_not_worse": true,
+        "brier_2026_improves": true,
+        "ece_2026_improves": true,
+        "bootstrap_brier_ci": true,
+        "real_roi_not_worse": false,
+        "min_real_odds_sample": false,
+        "deploy": false
+      }
+    },
+    {
+      "method": "protected_gate",
+      "passCount": 5,
+      "deploy": false,
+      "recent_brier_delta": -0.00201013118926191,
+      "recent_ece_delta": -0.02355321610365444,
+      "brier_delta_ci_low": -0.0036422863524231304,
+      "brier_delta_ci_high": -0.0005297022593776637,
+      "gates": {
+        "brier_2025_not_worse": true,
+        "ece_2025_not_worse": true,
+        "brier_2026_improves": true,
+        "ece_2026_improves": true,
+        "bootstrap_brier_ci": true,
+        "real_roi_not_worse": false,
+        "min_real_odds_sample": false,
+        "deploy": false
+      }
+    },
+    {
+      "method": "sample_light_filter",
+      "passCount": 5,
+      "deploy": false,
+      "recent_brier_delta": -0.00201013118926191,
+      "recent_ece_delta": -0.02355321610365444,
+      "brier_delta_ci_low": -0.0036422863524231304,
+      "brier_delta_ci_high": -0.0005297022593776637,
+      "gates": {
+        "brier_2025_not_worse": true,
+        "ece_2025_not_worse": true,
+        "brier_2026_improves": true,
+        "ece_2026_improves": true,
+        "bootstrap_brier_ci": true,
+        "real_roi_not_worse": false,
+        "min_real_odds_sample": false,
+        "deploy": false
+      }
+    },
+    {
+      "method": "sample_filter",
+      "passCount": 5,
+      "deploy": false,
+      "recent_brier_delta": -0.00201013118926191,
+      "recent_ece_delta": -0.02355321610365444,
+      "brier_delta_ci_low": -0.0036422863524231304,
+      "brier_delta_ci_high": -0.0005297022593776637,
+      "gates": {
+        "brier_2025_not_worse": true,
+        "ece_2025_not_worse": true,
+        "brier_2026_improves": true,
+        "ece_2026_improves": true,
+        "bootstrap_brier_ci": true,
+        "real_roi_not_worse": false,
+        "min_real_odds_sample": false,
+        "deploy": false
+      }
+    },
+    {
+      "method": "sample_strict_filter",
+      "passCount": 5,
+      "deploy": false,
+      "recent_brier_delta": -0.00201013118926191,
+      "recent_ece_delta": -0.02355321610365444,
+      "brier_delta_ci_low": -0.0036422863524231304,
+      "brier_delta_ci_high": -0.0005297022593776637,
+      "gates": {
+        "brier_2025_not_worse": true,
+        "ece_2025_not_worse": true,
+        "brier_2026_improves": true,
+        "ece_2026_improves": true,
+        "bootstrap_brier_ci": true,
+        "real_roi_not_worse": false,
+        "min_real_odds_sample": false,
+        "deploy": false
+      }
+    },
+    {
+      "method": "calibration_filter",
+      "passCount": 5,
+      "deploy": false,
+      "recent_brier_delta": -0.00201013118926191,
+      "recent_ece_delta": -0.02355321610365444,
+      "brier_delta_ci_low": -0.0036422863524231304,
+      "brier_delta_ci_high": -0.0005297022593776637,
+      "gates": {
+        "brier_2025_not_worse": true,
+        "ece_2025_not_worse": true,
+        "brier_2026_improves": true,
+        "ece_2026_improves": true,
+        "bootstrap_brier_ci": true,
+        "real_roi_not_worse": false,
+        "min_real_odds_sample": false,
+        "deploy": false
+      }
+    },
+    {
+      "method": "line_stability_filter",
+      "passCount": 5,
+      "deploy": false,
+      "recent_brier_delta": -0.00201013118926191,
+      "recent_ece_delta": -0.02355321610365444,
+      "brier_delta_ci_low": -0.0036422863524231304,
+      "brier_delta_ci_high": -0.0005297022593776637,
+      "gates": {
+        "brier_2025_not_worse": true,
+        "ece_2025_not_worse": true,
+        "brier_2026_improves": true,
+        "ece_2026_improves": true,
+        "bootstrap_brier_ci": true,
+        "real_roi_not_worse": false,
+        "min_real_odds_sample": false,
+        "deploy": false
+      }
+    },
+    {
+      "method": "robust_filter",
+      "passCount": 5,
+      "deploy": false,
+      "recent_brier_delta": -0.00201013118926191,
+      "recent_ece_delta": -0.02355321610365444,
+      "brier_delta_ci_low": -0.0036422863524231304,
+      "brier_delta_ci_high": -0.0005297022593776637,
+      "gates": {
+        "brier_2025_not_worse": true,
+        "ece_2025_not_worse": true,
+        "brier_2026_improves": true,
+        "ece_2026_improves": true,
+        "bootstrap_brier_ci": true,
+        "real_roi_not_worse": false,
+        "min_real_odds_sample": false,
+        "deploy": false
+      }
+    },
+    {
+      "method": "sample_calibration_filter",
+      "passCount": 5,
+      "deploy": false,
+      "recent_brier_delta": -0.00201013118926191,
+      "recent_ece_delta": -0.02355321610365444,
+      "brier_delta_ci_low": -0.0036422863524231304,
+      "brier_delta_ci_high": -0.0005297022593776637,
+      "gates": {
+        "brier_2025_not_worse": true,
+        "ece_2025_not_worse": true,
+        "brier_2026_improves": true,
+        "ece_2026_improves": true,
+        "bootstrap_brier_ci": true,
+        "real_roi_not_worse": false,
+        "min_real_odds_sample": false,
+        "deploy": false
+      }
+    },
+    {
+      "method": "edge_6_filter",
+      "passCount": 5,
+      "deploy": false,
+      "recent_brier_delta": -0.001755384351376288,
+      "recent_ece_delta": -0.021603848526915083,
+      "brier_delta_ci_low": -0.0033364852466175937,
+      "brier_delta_ci_high": -0.00024188933843895168,
+      "gates": {
+        "brier_2025_not_worse": true,
+        "ece_2025_not_worse": true,
+        "brier_2026_improves": true,
+        "ece_2026_improves": true,
+        "bootstrap_brier_ci": true,
+        "real_roi_not_worse": false,
+        "min_real_odds_sample": false,
+        "deploy": false
+      }
+    },
+    {
+      "method": "shrink_20",
+      "passCount": 4,
+      "deploy": false,
+      "recent_brier_delta": -0.002146945940149775,
+      "recent_ece_delta": -0.029041362023753785,
+      "brier_delta_ci_low": -0.0036881572419192855,
+      "brier_delta_ci_high": -0.0006990056648056253,
+      "gates": {
+        "brier_2025_not_worse": true,
+        "ece_2025_not_worse": true,
+        "brier_2026_improves": false,
+        "ece_2026_improves": true,
+        "bootstrap_brier_ci": true,
+        "real_roi_not_worse": false,
+        "min_real_odds_sample": false,
+        "deploy": false
+      }
+    },
+    {
+      "method": "shrink_30",
+      "passCount": 4,
+      "deploy": false,
+      "recent_brier_delta": -0.0018891100636229952,
+      "recent_ece_delta": -0.022463084220267465,
+      "brier_delta_ci_low": -0.0033758251306031106,
+      "brier_delta_ci_high": -0.0004511689060994137,
+      "gates": {
+        "brier_2025_not_worse": true,
+        "ece_2025_not_worse": true,
+        "brier_2026_improves": false,
+        "ece_2026_improves": true,
+        "bootstrap_brier_ci": true,
+        "real_roi_not_worse": false,
+        "min_real_odds_sample": false,
+        "deploy": false
+      }
+    },
+    {
+      "method": "scenario_stability_filter",
+      "passCount": 4,
+      "deploy": false,
+      "recent_brier_delta": -0.0018769238007072253,
+      "recent_ece_delta": -0.023455807496528144,
+      "brier_delta_ci_low": -0.0034956930088573196,
+      "brier_delta_ci_high": -0.00041684188708691867,
+      "gates": {
+        "brier_2025_not_worse": true,
+        "ece_2025_not_worse": true,
+        "brier_2026_improves": false,
+        "ece_2026_improves": true,
+        "bootstrap_brier_ci": true,
+        "real_roi_not_worse": false,
+        "min_real_odds_sample": false,
+        "deploy": false
+      }
+    },
+    {
+      "method": "edge_filter",
+      "passCount": 4,
+      "deploy": false,
+      "recent_brier_delta": -0.0016807452568222692,
+      "recent_ece_delta": -0.02419998457504066,
+      "brier_delta_ci_low": -0.0032971423483856483,
+      "brier_delta_ci_high": -0.00025388854004951316,
+      "gates": {
+        "brier_2025_not_worse": true,
+        "ece_2025_not_worse": true,
+        "brier_2026_improves": false,
+        "ece_2026_improves": true,
+        "bootstrap_brier_ci": true,
+        "real_roi_not_worse": false,
+        "min_real_odds_sample": false,
+        "deploy": false
+      }
+    },
+    {
+      "method": "sample_calibration_edge_filter",
+      "passCount": 4,
+      "deploy": false,
+      "recent_brier_delta": -0.0016807452568222692,
+      "recent_ece_delta": -0.02419998457504066,
+      "brier_delta_ci_low": -0.0032971423483856483,
+      "brier_delta_ci_high": -0.00025388854004951316,
+      "gates": {
+        "brier_2025_not_worse": true,
+        "ece_2025_not_worse": true,
+        "brier_2026_improves": false,
+        "ece_2026_improves": true,
+        "bootstrap_brier_ci": true,
+        "real_roi_not_worse": false,
+        "min_real_odds_sample": false,
+        "deploy": false
+      }
+    },
+    {
+      "method": "edge_10_filter",
+      "passCount": 4,
+      "deploy": false,
+      "recent_brier_delta": -0.001465261414465402,
+      "recent_ece_delta": -0.026786634274254508,
+      "brier_delta_ci_low": -0.002956467194296998,
+      "brier_delta_ci_high": -0.00003834425673026001,
+      "gates": {
+        "brier_2025_not_worse": true,
+        "ece_2025_not_worse": true,
+        "brier_2026_improves": false,
+        "ece_2026_improves": true,
+        "bootstrap_brier_ci": true,
+        "real_roi_not_worse": false,
+        "min_real_odds_sample": false,
+        "deploy": false
+      }
+    },
+    {
+      "method": "patch_stability_filter",
+      "passCount": 2,
+      "deploy": false,
+      "recent_brier_delta": 0.0038972857087803126,
+      "recent_ece_delta": -0.02524915162733111,
+      "brier_delta_ci_low": 0.001962824644688011,
+      "brier_delta_ci_high": 0.005782965436149205,
+      "gates": {
+        "brier_2025_not_worse": false,
+        "ece_2025_not_worse": true,
+        "brier_2026_improves": false,
+        "ece_2026_improves": true,
+        "bootstrap_brier_ci": false,
+        "real_roi_not_worse": false,
+        "min_real_odds_sample": false,
+        "deploy": false
+      }
+    },
+    {
+      "method": "sample_calibration_patch_filter",
+      "passCount": 2,
+      "deploy": false,
+      "recent_brier_delta": 0.0038972857087803126,
+      "recent_ece_delta": -0.02524915162733111,
+      "brier_delta_ci_low": 0.001962824644688011,
+      "brier_delta_ci_high": 0.005782965436149205,
+      "gates": {
+        "brier_2025_not_worse": false,
+        "ece_2025_not_worse": true,
+        "brier_2026_improves": false,
+        "ece_2026_improves": true,
+        "bootstrap_brier_ci": false,
+        "real_roi_not_worse": false,
+        "min_real_odds_sample": false,
+        "deploy": false
+      }
+    },
+    {
+      "method": "combined_noise_filter",
+      "passCount": 2,
+      "deploy": false,
+      "recent_brier_delta": 0.0038972857087803126,
+      "recent_ece_delta": -0.02524915162733111,
+      "brier_delta_ci_low": 0.001962824644688011,
+      "brier_delta_ci_high": 0.005782965436149205,
+      "gates": {
+        "brier_2025_not_worse": false,
+        "ece_2025_not_worse": true,
+        "brier_2026_improves": false,
+        "ece_2026_improves": true,
+        "bootstrap_brier_ci": false,
+        "real_roi_not_worse": false,
+        "min_real_odds_sample": false,
+        "deploy": false
+      }
+    },
+    {
+      "method": "patch_14d_filter",
+      "passCount": 2,
+      "deploy": false,
+      "recent_brier_delta": 0.0060620755822932415,
+      "recent_ece_delta": -0.030217723276259136,
+      "brier_delta_ci_low": 0.003962652214254269,
+      "brier_delta_ci_high": 0.008117822810568142,
+      "gates": {
+        "brier_2025_not_worse": false,
+        "ece_2025_not_worse": true,
+        "brier_2026_improves": false,
+        "ece_2026_improves": true,
+        "bootstrap_brier_ci": false,
+        "real_roi_not_worse": false,
+        "min_real_odds_sample": false,
+        "deploy": false
+      }
+    },
+    {
+      "method": "conservative_noise_filter",
+      "passCount": 2,
+      "deploy": false,
+      "recent_brier_delta": 0.0060620755822932415,
+      "recent_ece_delta": -0.030217723276259136,
+      "brier_delta_ci_low": 0.003962652214254269,
+      "brier_delta_ci_high": 0.008117822810568142,
+      "gates": {
+        "brier_2025_not_worse": false,
+        "ece_2025_not_worse": true,
+        "brier_2026_improves": false,
+        "ece_2026_improves": true,
+        "bootstrap_brier_ci": false,
+        "real_roi_not_worse": false,
+        "min_real_odds_sample": false,
+        "deploy": false
+      }
+    }
+  ]
+}

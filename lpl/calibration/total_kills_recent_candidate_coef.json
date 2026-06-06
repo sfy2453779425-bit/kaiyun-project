@@ -1,0 +1,184 @@
+{
+  "model": "total_kills_continuous_normal_v1",
+  "formula": "total_kills = intercept + standardized profile features + patch fixed effect; probability via Normal(mean, sigma)",
+  "fit_year": "2024_2025_2026_final",
+  "features": [
+    "avg_total_mean",
+    "avg_time_mean",
+    "strength_abs_diff",
+    "strength_signed_diff",
+    "recent_abs_diff",
+    "avg_kill_diff_sum",
+    "first_turret_mean"
+  ],
+  "refit_method": "recent_weighted_refit_v1",
+  "refit_variant": "decay_hl_60_floor_010",
+  "refit_label": "Exponential decay half-life 60d, weight floor 0.10",
+  "half_life_days": 60,
+  "weight_floor": 0.1,
+  "intercept": 27.99712220686883,
+  "beta": {
+    "avg_total_mean": 1.0957549424520134,
+    "avg_time_mean": -0.5461205101678926,
+    "strength_abs_diff": 1.2903837994931453,
+    "strength_signed_diff": 0.2474976429888297,
+    "recent_abs_diff": -0.46144472268854464,
+    "avg_kill_diff_sum": -0.06200266025314699,
+    "first_turret_mean": 0.6688434553471071
+  },
+  "scaler": {
+    "avg_total_mean": {
+      "mean": 27.73239390231701,
+      "sd": 1.6075477119969548
+    },
+    "avg_time_mean": {
+      "mean": 32.39733133107048,
+      "sd": 0.6276010348274714
+    },
+    "strength_abs_diff": {
+      "mean": 10.772430145955967,
+      "sd": 7.4931768135934975
+    },
+    "strength_signed_diff": {
+      "mean": 0.5088853256333313,
+      "sd": 13.112360036798474
+    },
+    "recent_abs_diff": {
+      "mean": 0.13467551408551706,
+      "sd": 0.10300893144646828
+    },
+    "avg_kill_diff_sum": {
+      "mean": 0.7563422111752445,
+      "sd": 3.893758364580973
+    },
+    "first_turret_mean": {
+      "mean": 0.5110445462644618,
+      "sd": 0.050510528125871236
+    }
+  },
+  "baseline_patch": "16.9",
+  "patch_gamma": {
+    "16.9": 0,
+    "16.7": -0.9372851022774681,
+    "16.8": -0.9804319870968728,
+    "16.10": 0.07908189346843364,
+    "16.2": 2.051024007300518,
+    "16.3": -1.7168399412825215,
+    "16.1": 0.7259395137991529,
+    "14.13": 1.6023708810029285,
+    "15.9": 1.9710414166657257,
+    "14.2": 1.6026171882937892,
+    "15.14": 0.7449030740810094,
+    "15.7": 1.9693074521585547,
+    "15.15": 1.8610364256493264,
+    "14.5": 0.8152446727282836,
+    "15.8": 0.785535025279868,
+    "14.4": 1.0474385843055682,
+    "15.17": -0.048999416459264825,
+    "14.10": 0.5566702540749816,
+    "14.11": 0.46064685428571833,
+    "15.16": 2.897172876524747,
+    "14.15": -0.7028937872180786,
+    "14.14": 0.9334334450868494,
+    "15.6": 1.0052160955006568,
+    "15.11": 0.11425406817811326,
+    "14.6": 0.11501399886190658,
+    "15.2": 1.6666989073266403,
+    "15.1": 1.653991259150526,
+    "15.4": -0.1248866124093325,
+    "15.10": 2.7381688248520324,
+    "14.1": 2.808505225149964
+  },
+  "sigma": 7,
+  "deploy": false,
+  "training": {
+    "fit_year": "2024_2025_2026_final",
+    "reference_date": "2026-05-30",
+    "train_rows": 1882,
+    "effective_weight": 353.30547026069536,
+    "train_start": "2024-02-04",
+    "train_end": "2026-05-30"
+  },
+  "generated_at": "2026-06-03T14:34:19.971Z",
+  "seed": 20260603,
+  "validation": {
+    "refit_report": "lpl/data/盘口分析/总杀重拟合-vs-当前.md",
+    "detail_csv": "lpl/data/backtest/total_kills_refit_vs_current.csv",
+    "selected_variant": "decay_hl_60_floor_010",
+    "landed": false,
+    "gates": {
+      "gate2025": true,
+      "gate2026Bias": false,
+      "gate2026Ece": true,
+      "gateBrier": false,
+      "deploy": false
+    },
+    "metrics": {
+      "oos_2025": {
+        "label": "2025 OOS",
+        "n_lines": 4902,
+        "n_maps": 817,
+        "brier_old": 0.229939566477467,
+        "brier_new": 0.23066801591072056,
+        "brier_delta": 0.000728449433253564,
+        "ece_old": 0.010374648522709173,
+        "ece_new": 0.007577972954484566,
+        "ece_delta": -0.0027966755682246073,
+        "bias_old": 0.43739630380597877,
+        "bias_new": -0.005069476789203724,
+        "mean_actual": 30.10281517747858,
+        "mean_old": 29.66541887367262,
+        "mean_new": 30.107884654267774
+      },
+      "oos_2026": {
+        "label": "2026 rolling OOS",
+        "n_lines": 2502,
+        "n_maps": 417,
+        "brier_old": 0.22721258806304057,
+        "brier_new": 0.21684842632416532,
+        "brier_delta": -0.01036416173887525,
+        "ece_old": 0.022017581860235915,
+        "ece_new": 0.016488020189891244,
+        "ece_delta": -0.005529561670344671,
+        "bias_old": -1.421068427086598,
+        "bias_new": 0.4545259082666748,
+        "mean_actual": 28.489208633093526,
+        "mean_old": 29.910277060180075,
+        "mean_new": 28.034682724826876
+      },
+      "oos_2025_2026": {
+        "label": "2025+2026 OOS",
+        "n_lines": 7404,
+        "n_maps": 1234,
+        "brier_old": 0.22901805108134582,
+        "brier_new": 0.22599802494022464,
+        "brier_delta": -0.0030200261411211793,
+        "ece_old": 0.008494600032377604,
+        "ece_new": 0.007880123910492013,
+        "ece_delta": -0.0006144761218855911,
+        "bias_old": -0.1906262187079629,
+        "bias_new": 0.1502394985497763,
+        "mean_actual": 29.557536466774717,
+        "mean_old": 29.748162685482654,
+        "mean_new": 29.407296968224934
+      },
+      "brier_delta_ci95_2025_2026_cluster_match": {
+        "low": -0.007020428666453889,
+        "high": 0.0012032232965249593
+      }
+    },
+    "final_training": {
+      "fit_year": "2024_2025_2026_final",
+      "reference_date": "2026-05-30",
+      "train_rows": 1882,
+      "effective_weight": 353.30547026069536,
+      "train_start": "2024-02-04",
+      "train_end": "2026-05-30"
+    },
+    "bootstrap": {
+      "iterations": 1000,
+      "seed": 20260603,
+      "cluster": "match_id"
+    }
+  }
+}

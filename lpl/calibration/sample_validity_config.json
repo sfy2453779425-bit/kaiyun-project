@@ -1,0 +1,71 @@
+{
+  "model": "lpl_sample_validity_v1",
+  "deploy": false,
+  "generated_at": "2026-06-06T04:04:26.730Z",
+  "min_prior_maps": 8,
+  "tested_methods": [
+    "all_history",
+    "last_30_maps",
+    "last_60_maps",
+    "last_90_maps",
+    "decay_30d",
+    "decay_60d",
+    "decay_90d",
+    "post_roster_break",
+    "current_patch_only",
+    "dynamic_break_decay_60"
+  ],
+  "structural_break_rules": {
+    "roster_overlap_break_below": 0.7,
+    "patch_new_days_soft_reset": 14,
+    "meta_shift_flags": {
+      "total_kills_diff": 1.5,
+      "game_time_diff_minutes": 1
+    },
+    "coach_changes": "not available in current local data; add manual override file before using coach breaks online"
+  },
+  "recommendations": {
+    "map_win": {
+      "method": "decay_90d",
+      "metric": "map_win",
+      "status": "paper_only",
+      "recent_value": 0.2419619221596427,
+      "baseline_recent_value": 0.24271638553889752,
+      "y2025_value": 0.24054524465116256,
+      "y2026_value": 0.2447375229376498,
+      "gates": {
+        "y2025_not_worse": true,
+        "y2026_improves": false,
+        "enough_rows": true
+      }
+    },
+    "total_kills": {
+      "method": "decay_60d",
+      "metric": "total_kills",
+      "status": "paper_only",
+      "recent_value": 6.492918962722847,
+      "baseline_recent_value": 6.580951377633706,
+      "y2025_value": 6.6903035495716,
+      "y2026_value": 6.106196642685854,
+      "gates": {
+        "y2025_not_worse": true,
+        "y2026_improves": false,
+        "enough_rows": true
+      }
+    },
+    "game_time": {
+      "method": "current_patch_only",
+      "metric": "game_time",
+      "status": "paper_only",
+      "recent_value": 4.0094991896272285,
+      "baseline_recent_value": 4.007515397082664,
+      "y2025_value": 4.043012239902084,
+      "y2026_value": 3.9438393285371727,
+      "gates": {
+        "y2025_not_worse": true,
+        "y2026_improves": false,
+        "enough_rows": true
+      }
+    }
+  }
+}

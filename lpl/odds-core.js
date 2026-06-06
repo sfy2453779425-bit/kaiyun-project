@@ -12,6 +12,8 @@ import {
   toCsv,
   writeCsv,
 } from './shared.js';
+import { modelModeLine } from './model-config.js';
+import { applyNoiseAdjustment, noiseFilterDecision } from './calibration/noise-filter.js';
 
 export const BANKROLL = 100;
 export const FIXED_STAKE_UNIT = 3;
@@ -97,7 +99,11 @@ export function evaluateTemplate(templateRows, rateRows) {
     const rate = rateMap.get(rowKey(row))
       || fallbackRateMap.get([row.match_name || '', row.market || '', row.selection || '', row.line || '', row.side || ''].join('|'))
       || {};
-    const probability = rate.probability !== '' && rate.probability != null ? Number(rate.probability) : '';
+    const rawProbability = rate.probability !== '' && rate.probability != null ? Number(rate.probability) : '';
+    const noiseAdjustment = rawProbability === ''
+      ? { probability: '', action: '', reason: '', method: '' }
+      : applyNoiseAdjustment({ ...row, ...rate, probability: rawProbability }, rawProbability);
+    const probability = noiseAdjustment.probability;
     const odds = Number(row.odds);
     const breakEven = impliedProbability(row.odds);
     const evValue = ev(probability, odds);
@@ -109,8 +115,12 @@ export function evaluateTemplate(templateRows, rateRows) {
       ...rate,
       ...row,
       market_label: MARKET_META[row.market]?.label || row.market,
+      raw_probability: rawProbability === '' ? '' : decimal(rawProbability),
       probability: probability === '' ? '' : decimal(probability),
       probability_text: probability === '' ? '' : pctText(probability),
+      noise_filter_action: noiseAdjustment.action || '',
+      noise_filter_method: noiseAdjustment.method || '',
+      noise_filter_reason: noiseAdjustment.reason || '',
       break_even: breakEven === '' ? '' : decimal(breakEven),
       break_even_text: breakEven === '' ? '' : pctText(breakEven),
       edge: edge === '' ? '' : decimal(edge),
@@ -230,6 +240,9 @@ function applyFinalGrades(rows) {
 }
 
 function hardMarketGate(row) {
+  const noiseGate = noiseFilterDecision(row);
+  if (noiseGate?.action === 'block') return noiseGate.reason;
+
   if (row.market === 'total_kills') {
     const lineEdge = Number(row.line_edge_kills);
     if (!Number.isFinite(lineEdge)) {
@@ -315,9 +328,12 @@ function applyStakeCaps(rows) {
 export async function writeEvaluationOutputs(evaluationRows, reportRows = []) {
   await mkdir(ANALYSIS_DIR, { recursive: true });
   const columns = [
+    'model_mode', 'model_signature', 'total_kills_model', 'total_kills_deploy', 'total_kills_model_generated_at',
     'match_id', 'match_date', 'match_name', 'scenario', 'market', 'market_label',
     'selection', 'line', 'side', 'odds', 'break_even', 'break_even_text',
-    'probability', 'probability_text', 'edge', 'ev', 'sample', 'basis',
+    'raw_probability', 'probability', 'probability_text',
+    'noise_filter_action', 'noise_filter_method', 'noise_filter_reason',
+    'edge', 'ev', 'sample', 'basis',
     'scenario_alignment', 'risk_grade', 'suggested_stake', 'bankroll',
     'reason', 'conflict',
     'total_kills_model_mean', 'total_kills_model_sigma', 'line_edge_kills',
@@ -369,6 +385,8 @@ function buildMarkdownReport(evaluationRows, reportRows) {
 
   const lines = [
     '# LPL盘口预测报告',
+    '',
+    modelModeLine(),
     '',
     '核心公式：EV = 模型命中率 × 十进制赔率 - 1。只有 EV > 0 且剧本、盘口之间没有明显冲突时，才进入 A/B 档。',
     '',

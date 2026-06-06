@@ -22,6 +22,7 @@ import {
 import { evaluateTemplate, writeEvaluationOutputs } from './odds-core.js';
 import { predictTeamKillsHandicap } from './calibration/team-kills-nb-predict.js';
 import { predictTotalKills } from './calibration/total-kills-model-predict.js';
+import { modelRunMeta } from './model-config.js';
 
 function before(rowDate, cutoffDate) {
   if (!cutoffDate) return true;
@@ -66,6 +67,7 @@ const PATCH_TEAM_PRIOR_CAP = 24;
 const RECENT_HALF_LIFE_DAYS = 30;
 const DAY_MS = 24 * 60 * 60 * 1000;
 const SCENARIO_THRESHOLD_PATH = path.join(process.cwd(), 'lpl', 'calibration', 'scenario_thresholds.json');
+const SAMPLE_VALIDITY_CONFIG_PATH = path.join(process.cwd(), 'lpl', 'calibration', 'sample_validity_config.json');
 
 export const SCENARIOS = {
   FAST_STOMP: '强队速推碾压局',
@@ -100,6 +102,7 @@ const DEFAULT_SCENARIO_THRESHOLDS = {
 };
 
 let scenarioThresholdCache = null;
+let sampleValidityConfigCache = undefined;
 
 export function loadScenarioThresholds() {
   if (scenarioThresholdCache) return scenarioThresholdCache;
@@ -117,6 +120,18 @@ export function loadScenarioThresholds() {
     scenarioThresholdCache = DEFAULT_SCENARIO_THRESHOLDS;
   }
   return scenarioThresholdCache;
+}
+
+function loadSampleValidityConfig() {
+  if (sampleValidityConfigCache !== undefined) return sampleValidityConfigCache;
+  sampleValidityConfigCache = null;
+  if (!existsSync(SAMPLE_VALIDITY_CONFIG_PATH)) return sampleValidityConfigCache;
+  try {
+    sampleValidityConfigCache = JSON.parse(readFileSync(SAMPLE_VALIDITY_CONFIG_PATH, 'utf8'));
+  } catch {
+    sampleValidityConfigCache = null;
+  }
+  return sampleValidityConfigCache;
 }
 
 function safeRate(value, fallback = 0.5) {
@@ -175,6 +190,28 @@ function decayedRate(rows, predicate, cutoffMs) {
     rate: totalWeight ? weightedHits / totalWeight : NaN,
     effectiveN: totalWeight,
   };
+}
+
+function windowStats(rows, teamId, size) {
+  const windowRows = rows.slice(-size);
+  const wins = windowRows.filter((row) => row.map_winner_id === teamId).length;
+  const totalKills = windowRows.reduce((sum, row) => sum + num(row.total_kills), 0);
+  const gameTime = windowRows.reduce((sum, row) => sum + num(row.game_time_min), 0);
+  return {
+    n: windowRows.length,
+    mapWinRate: windowRows.length ? pct(wins, windowRows.length) : NaN,
+    avgTotalKills: windowRows.length ? avg(totalKills, windowRows.length, 2) : NaN,
+    avgGameTime: windowRows.length ? avg(gameTime, windowRows.length, 2) : NaN,
+  };
+}
+
+function sampleValidityWarning(profile) {
+  if (num(profile.current_patch_maps) < 8) return 'new_patch_low_sample';
+  if (num(profile.maps) < 20) return 'low_team_sample';
+  const recent = num(profile.recent_30_map_win_rate, NaN);
+  const all = num(profile.map_win_rate, NaN);
+  if (Number.isFinite(recent) && Number.isFinite(all) && Math.abs(recent - all) >= 0.18) return 'recent_long_term_conflict';
+  return 'normal';
 }
 
 function meanOf(rows, valueFn, fallback = 0) {
@@ -255,6 +292,9 @@ export function buildProfiles(matchRows, mapRows, summaryRows, cutoffDate = '') 
     const totalKills = maps.reduce((sum, row) => sum + num(row.total_kills), 0);
     const gameTime = maps.reduce((sum, row) => sum + num(row.game_time_min), 0);
     const recentMaps = maps.slice(-10);
+    const recent30 = windowStats(maps, teamId, 30);
+    const recent60 = windowStats(maps, teamId, 60);
+    const recent90 = windowStats(maps, teamId, 90);
     const recentMatches = matches.slice(-5);
     const wonMaps = maps.filter((row) => row.map_winner_id === teamId);
     const lostMaps = maps.filter((row) => row.map_winner_id !== teamId);
@@ -339,6 +379,18 @@ export function buildProfiles(matchRows, mapRows, summaryRows, cutoffDate = '') 
       match_win_rate_raw: rawMatchWinRate,
       map_win_rate_raw: rawMapWinRate,
       recent_10_map_win_rate_raw: rawRecentMapWinRate,
+      recent_30_maps: recent30.n,
+      recent_60_maps: recent60.n,
+      recent_90_maps: recent90.n,
+      recent_30_map_win_rate: Number.isFinite(recent30.mapWinRate) ? Number(recent30.mapWinRate.toFixed(4)) : '',
+      recent_60_map_win_rate: Number.isFinite(recent60.mapWinRate) ? Number(recent60.mapWinRate.toFixed(4)) : '',
+      recent_90_map_win_rate: Number.isFinite(recent90.mapWinRate) ? Number(recent90.mapWinRate.toFixed(4)) : '',
+      recent_30_avg_total_kills: Number.isFinite(recent30.avgTotalKills) ? recent30.avgTotalKills : '',
+      recent_60_avg_total_kills: Number.isFinite(recent60.avgTotalKills) ? recent60.avgTotalKills : '',
+      recent_90_avg_total_kills: Number.isFinite(recent90.avgTotalKills) ? recent90.avgTotalKills : '',
+      recent_30_avg_game_time_min: Number.isFinite(recent30.avgGameTime) ? recent30.avgGameTime : '',
+      recent_60_avg_game_time_min: Number.isFinite(recent60.avgGameTime) ? recent60.avgGameTime : '',
+      recent_90_avg_game_time_min: Number.isFinite(recent90.avgGameTime) ? recent90.avgGameTime : '',
       recent_weighted_effective_maps: Number((recentDecayed.effectiveN || 0).toFixed(2)),
       avg_total_kills_raw: rawAvgTotalKills,
       avg_game_time_min_raw: rawAvgTime,
@@ -383,6 +435,11 @@ export function buildProfiles(matchRows, mapRows, summaryRows, cutoffDate = '') 
     profile.strength_score_confidence = Number((num(profile.maps) / (num(profile.maps) + RATE_PRIOR_N)).toFixed(3));
     profile.strength_score = shrinkScore(profile.strength_score_raw, profile.maps);
     profile.tempo_score = shrinkScore(profile.tempo_score_raw, profile.maps);
+    const sampleValidity = loadSampleValidityConfig();
+    profile.sample_validity_map_win_method = sampleValidity?.recommendations?.map_win?.method || 'not_run';
+    profile.sample_validity_total_kills_method = sampleValidity?.recommendations?.total_kills?.method || 'not_run';
+    profile.sample_validity_game_time_method = sampleValidity?.recommendations?.game_time?.method || 'not_run';
+    profile.sample_validity_warning = sampleValidityWarning(profile);
     profiles.set(teamId, profile);
   }
 
@@ -720,7 +777,9 @@ export function buildMarketsForMatch(match, profiles) {
   const favorite = scenario.favorite;
   const underdog = scenario.underdog;
   const sample = Math.round(num(a.maps) + num(b.maps));
+  const modelMeta = modelRunMeta();
   const base = {
+    ...modelMeta,
     match_id: match.match_id,
     match_date: match.match_date,
     match_name: match.match_name,
@@ -734,6 +793,7 @@ export function buildMarketsForMatch(match, profiles) {
     underdog_id: underdog.team_id,
     favorite_id_obj: favorite,
     underdog_id_obj: underdog,
+    sample_validity_summary: `${a.team} sample=${a.sample_validity_warning} recent30=${pctText(a.recent_30_map_win_rate)} recent60=${pctText(a.recent_60_map_win_rate)} recent90=${pctText(a.recent_90_map_win_rate)} methods(win=${a.sample_validity_map_win_method},kills=${a.sample_validity_total_kills_method},time=${a.sample_validity_game_time_method}); ${b.team} sample=${b.sample_validity_warning} recent30=${pctText(b.recent_30_map_win_rate)} recent60=${pctText(b.recent_60_map_win_rate)} recent90=${pctText(b.recent_90_map_win_rate)} methods(win=${b.sample_validity_map_win_method},kills=${b.sample_validity_total_kills_method},time=${b.sample_validity_game_time_method})`,
     team_state_summary: `${a.team}: 大场${pctText(a.match_win_rate)} 小局${pctText(a.map_win_rate)} 近5${a.recent_5 || '-'}，均杀/均死${a.avg_kills.toFixed(1)}/${a.avg_deaths.toFixed(1)}；${b.team}: 大场${pctText(b.match_win_rate)} 小局${pctText(b.map_win_rate)} 近5${b.recent_5 || '-'}，均杀/均死${b.avg_kills.toFixed(1)}/${b.avg_deaths.toFixed(1)}。`,
     key_data: `强度分 ${a.team} ${a.strength_score.toFixed(1)} vs ${b.team} ${b.strength_score.toFixed(1)}；GD@15 ${a.team} ${a.gd_at_15} vs ${b.team} ${b.gd_at_15}；平均总击杀 ${((a.avg_total_kills + b.avg_total_kills) / 2).toFixed(2)}；平均时长 ${((a.avg_game_time_min + b.avg_game_time_min) / 2).toFixed(2)} 分钟；首塔率 ${a.team} ${pctText(a.first_turret_rate)} vs ${b.team} ${pctText(b.first_turret_rate)}。`,
     risk_tip: '先按剧本筛盘口，再看EV；同场多个盘口如果都依赖同一剧本，建议合计不超过当日总投入50%。',
@@ -800,6 +860,7 @@ export function buildMarketsForMatch(match, profiles) {
   return {
     rates: rows,
     report: {
+      ...modelMeta,
       match_id: match.match_id,
       match_date: match.match_date,
       match_name: match.match_name,
@@ -821,6 +882,8 @@ async function buildOddsTemplate(rateRows) {
   const existing = await readCsvIfExists(path.join(ANALYSIS_DIR, '赔率填写模板.csv'));
   const oddsByKey = new Map(existing.map((row) => [[row.match_name, row.market, row.selection, row.line].join('|'), row.odds || '']));
   return rateRows.map((row) => ({
+    model_mode: row.model_mode,
+    model_signature: row.model_signature,
     match_id: row.match_id,
     match_date: row.match_date,
     match_name: row.match_name,
@@ -872,14 +935,16 @@ async function main() {
   await writeCsv(path.join(ANALYSIS_DIR, '队伍盘口命中率.csv'), profilesNow, unionColumns(profilesNow));
   await writeCsv(path.join(ANALYSIS_DIR, '比赛剧本摘要.csv'), reports, unionColumns(reports));
   await writeCsv(path.join(ANALYSIS_DIR, '待赛对阵盘口概率.csv'), allRates, [
+    'model_mode', 'model_signature', 'total_kills_model', 'total_kills_deploy', 'total_kills_model_generated_at',
     'match_id', 'match_date', 'match_name', 'scenario', 'primary_scenario', 'scenario_probs', 'scenario_reason',
     'favorite', 'underdog', 'market', 'selection', 'line', 'side',
     'probability', 'probability_text', 'sample', 'basis', 'scenario_alignment',
-    'team_state_summary', 'key_data', 'risk_tip',
+    'team_state_summary', 'sample_validity_summary', 'key_data', 'risk_tip',
     'total_kills_model_mean', 'total_kills_model_sigma', 'line_edge_kills',
     'note',
   ]);
   await writeCsv(path.join(ANALYSIS_DIR, '赔率填写模板.csv'), template, [
+    'model_mode', 'model_signature',
     'match_id', 'match_date', 'match_name', 'scenario', 'market', 'selection',
     'line', 'side', 'odds', 'note',
   ]);

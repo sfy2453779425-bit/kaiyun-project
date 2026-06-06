@@ -14,6 +14,7 @@ async function main() {
   const candidates = strictRows.filter((row) => row.strict_result === '通过');
 
   await writeCsv(path.join(ANALYSIS_DIR, '严格筛选结果.csv'), strictRows, [
+    'model_mode', 'model_signature', 'total_kills_model', 'total_kills_deploy',
     'match_name', 'scenario', 'market', 'selection', 'line', 'odds',
     'break_even_text', 'probability_text', 'edge', 'ev', 'risk_grade',
     'strict_result', 'strict_reason', 'suggested_stake', 'bankroll', 'basis',
@@ -22,6 +23,7 @@ async function main() {
     'conflict', 'note',
   ]);
   await writeCsv(path.join(ANALYSIS_DIR, '可下注候选.csv'), candidates, [
+    'model_mode', 'model_signature', 'total_kills_model', 'total_kills_deploy',
     'match_name', 'scenario', 'market', 'selection', 'line', 'odds',
     'break_even_text', 'probability_text', 'edge', 'ev', 'risk_grade',
     'suggested_stake', 'bankroll', 'basis', 'scenario_alignment',
