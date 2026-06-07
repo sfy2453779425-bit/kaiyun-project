@@ -1,0 +1,52 @@
+{
+  "model_type": "lpl_dynamic_elo_roster_baseline_v1",
+  "generated_at": "2026-06-06T23:56:22.544Z",
+  "deploy": false,
+  "deploy_reason": "comparison_baseline_only_not_wired_to_runtime",
+  "lpl_only": true,
+  "parameters": {
+    "base_rating": 1500,
+    "elo_scale": 400,
+    "team_k": 30,
+    "player_k": 10,
+    "decay_half_life_days": 150,
+    "roster_break_overlap": 0.7,
+    "roster_break_retention": 0.45,
+    "player_blend_weight": 0.35,
+    "bootstrap_seed": 20260606,
+    "bootstrap_iters": 1000
+  },
+  "best_variant": "elo_plain",
+  "paper_gate": {
+    "pass_vs_current": false,
+    "reason": "Did not clear strict baseline gate. Keep as paper-only comparison."
+  },
+  "bootstrap_checks": [
+    {
+      "candidate": "elo_plain",
+      "baseline": "current_model",
+      "fold": "recent_2025_2026",
+      "n_clusters": 473,
+      "brier_delta_mean": "0.0022",
+      "ci_low": "-0.0037",
+      "ci_high": "0.0083",
+      "pass": "no"
+    },
+    {
+      "candidate": "elo_plain",
+      "baseline": "market",
+      "fold": "recent_2025_2026",
+      "n_clusters": 277,
+      "brier_delta_mean": "0.0085",
+      "ci_low": "-0.0029",
+      "ci_high": "0.0199",
+      "pass": "no"
+    }
+  ],
+  "outputs": {
+    "detail_csv": "D:\\kaiyun - 副本\\lpl\\data\\backtest\\elo_roster_predictions.csv",
+    "summary_csv": "D:\\kaiyun - 副本\\lpl\\data\\backtest\\elo_roster_summary.csv",
+    "breakpoint_csv": "D:\\kaiyun - 副本\\lpl\\data\\backtest\\elo_roster_breakpoints.csv",
+    "report_md": "D:\\kaiyun - 副本\\lpl\\data\\盘口分析\\Elo阵容断点基线对比.md"
+  }
+}
